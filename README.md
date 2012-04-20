@@ -16,35 +16,31 @@ At its core, this HTML5 History-friendly version of Jekyll catches any internal 
 
 The tech that makes this possible is acutally incredibly simple. All one needs to do is use History.JS and include this piece of code into their primary Javascript file.
 
-{% highlight javascript %}
-jQuery(document).ready(function($) {
+	jQuery(document).ready(function($) {
 
-	var siteUrl = 'http://'+(document.location.hostname||document.location.host);
+		var siteUrl = 'http://'+(document.location.hostname||document.location.host);
 
-	$(document).delegate('a[href^="/"],a[href^="'+siteUrl+'"]', "click", function(e) {
-		e.preventDefault();
-		History.pushState({}, "", this.pathname);
-	});
-
-	History.Adapter.bind(window, 'statechange', function(){
-		var State = History.getState();
-		$.get(State.url, function(data){
-			document.title = $(data).("title").text();
-			$('.content').html($(data).find('.content'));
-			_gaq.push(['_trackPageview', State.url]);
+		$(document).delegate('a[href^="/"],a[href^="'+siteUrl+'"]', "click", function(e) {
+			e.preventDefault();
+			History.pushState({}, "", this.pathname);
 		});
-	});
 
-});
-{% endhighlight %}
+		History.Adapter.bind(window, 'statechange', function(){
+			var State = History.getState();
+			$.get(State.url, function(data){
+				document.title = $(data).("title").text();
+				$('.content').html($(data).find('.content'));
+				_gaq.push(['_trackPageview', State.url]);
+			});
+		});
+
+	});
 
 Really, though, it's a little more complicated than that. The best way to get functionality out-of-the-box is to clone this repo out of Github and use it as a starting point for your own creation. You can change the formatting, the types of layouts &mdash; whatever you want. You can strip away my [*wonderful* grid](https://github.com/joelhans/Colonnade), and you can free yourself from my CSS. **The only caveat is that you must maintain a similar structure in your layout.html file. Or know what you're doing.**
 
-{% highlight html %}
-<section class="content">
-	{% raw %}{{ content }}{% endraw %}
-</section>
-{% endhighlight %}
+	<section class="content">
+		{% raw %}{{ content }}{% endraw %}
+	</section>
 
 If you get rid of that "content" class, the AJAX call in the above snippet will fail to load the requested page, and that's no good at all. Of course, you can change that class *and* change the class name the Javascript function looks for.
 
@@ -58,9 +54,7 @@ There. That wasn't that hard, was it?
 
 As a little aside, I'll take a minute to talk titles. The above code is capable of changing the document's title on-the-fly during an AJAX call, thanks to this little bit of code:
 
-{% highlight javascript %}
-document.title = $(data).("title").text();
-{% endhighlight %}
+	document.title = $(data).("title").text();
 
 This works in essentially the same way as the Javascript that pulls the page's content, except it grabs the title of the page we call with AJAX and inserts that into the current document. It assumes that you have your titles set up properly, which this default Jekyll site does. *Just another reason to use this as a solid template for your next Jekyll-based project*.
 
@@ -68,9 +62,7 @@ This works in essentially the same way as the Javascript that pulls the page's c
 
 Be not afraid! The piece of JavaScript that powers the AJAX-iness of this Jekyll template is also capable of handling the changes via a `_gaq.push` function. This assumes that you have the proper Google Analytics code (with your own account #) set up in the header of the `layout.html` page, which can be found in `_layouts/`. The code is simple:
 
-{% highlight javascript %}
-_gaq.push(['_trackPageview', State.url]);
-{% endhighlight %}
+	_gaq.push(['_trackPageview', State.url]);
 
 ## Why ##
 
