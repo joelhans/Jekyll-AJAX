@@ -1,0 +1,208 @@
+/***********************************************************************************
+*	This is Colonnade, a simple-but-beautiful responsive grid built on SASS.
+*
+*	I was built by Joel Hans (http://designbyjoel.com).
+*	Feel free to use this grid or adapt it to your own needs under the GPL license.
+*	License: http://www.gnu.org/copyleft/gpl.html
+*
+***********************************************************************************/
+
+// 
+//	User-configurable variables
+//
+//	These allow you to customize how wide your grid will be,
+//	as well as how many columns it has, and the width of the
+//	gutters between them. Use reasonable math!
+//
+
+$containerWidth :		960px;
+$columnNumber	:		12;
+$gutterWidth	:		20px;
+
+/* Use media queries for grids larger than 960px? Set to false if you don't want them. */
+$bigGrids		:		false;
+
+/***********************************************************************************
+*	Border-box: http://paulirish.com/2012/box-sizing-border-box-ftw/
+*
+*	I would use the * selector, but I don't want to interfere with
+*	a use case that is not compatible with the new box model.
+***********************************************************************************/
+
+.container, .row, [class*="column-"] { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+/***********************************************************************************
+*	Standard styles for container, rows, columns.
+*	
+*	Nothing too special here, really.
+***********************************************************************************/
+
+.container { 
+	position: relative; 
+	width: $containerWidth;
+	margin: 0 auto; 
+	padding: 0;
+}
+
+.row {
+	margin-bottom: 20px;
+	zoom: 1;
+}
+
+[class*="column-"] {
+	margin-left: $gutterWidth / 2;
+	margin-right: $gutterWidth / 2;
+	float: left;
+	display: inline;
+}
+
+/***********************************************************************************
+*	Columns
+*	
+*	Herein lies the SASS magic that builds the styles for
+*	each column and the offsets. It will use the user-configurable 
+*	variables for its logic.
+***********************************************************************************/
+
+//	Basic columns.
+@for $i from 1 through $columnNumber {
+	.column-#{$i} {
+		width: (($containerWidth / 12) * $i - 20);
+	}
+}
+
+//	Offset columns.
+@for $i from 1 through ($columnNumber - 1) {
+	.offset-#{$i} {
+		margin-left: (($containerWidth / 12) * $i + 10);
+	}
+}
+
+//	Nested columns.
+[class*="column-"] > .row {
+	margin-bottom: 0px;
+}
+
+[class*="column-"] > .row > [class*="column-"]:first-child {
+	margin-left: 0px;
+}
+
+[class*="column-"] > .row > [class*="column-"]:last-child  {
+	margin-right: 0px;
+}
+
+// Some final row fixes.
+.row:before, .row:after {
+	content: '\0020';
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+.row:after {
+	clear: both;
+}
+
+/***********************************************************************************
+*	Responsiveness
+*	
+*	Now that we have the basic grid out of the way, we can
+*	completely muck it up with some media queries based on
+*	some good break points.
+***********************************************************************************/
+
+@if $bigGrids == true { @media only screen and (min-width: 1400px) {
+
+	$containerWidth: 1400px;
+
+	.container {
+		width: $containerWidth;
+	}
+
+	@for $i from 1 through $columnNumber {
+		.column-#{$i} {
+			width: (($containerWidth / 12) * $i - 20);
+		}
+	}
+
+	@for $i from 1 through ($columnNumber - 1) {
+		.offset-#{$i} {
+			margin-left: (($containerWidth / 12) * $i + 10);
+		}
+	}
+
+} }
+
+@if $bigGrids == true { @media only screen and (min-width: 1200px) and (max-width: 1399px) {
+
+	$containerWidth: 1140px;
+
+	.container {
+		width: $containerWidth;
+	}
+
+	@for $i from 1 through $columnNumber {
+		.column-#{$i} {
+			width: (($containerWidth / 12) * $i - 20);
+		}
+	}
+
+	@for $i from 1 through ($columnNumber - 1) {
+		.offset-#{$i} {
+			margin-left: (($containerWidth / 12) * $i + 10);
+		}
+	}
+
+} }
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+
+	$containerWidth: 768px;
+
+	.container {
+		width: $containerWidth;
+	}
+
+	@for $i from 1 through $columnNumber {
+		.column-#{$i} {
+			width: (($containerWidth / 12) * $i - 20);
+		}
+	}
+
+	@for $i from 1 through ($columnNumber - 1) {
+		.offset-#{$i} {
+			margin-left: (($containerWidth / 12) * $i + 10);
+		}
+	}
+
+}
+
+@media only screen and (max-width: 767px) {
+	[class*="offset-"] {
+		margin-left: 0px;
+	}
+
+	[class*="column-"] {
+		margin-left: 0px;
+		margin-right: 0px;
+		margin-bottom: 5px;
+	}
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	$containerWidth: 420px;
+
+	.container, [class*="column-"] {
+		width: $containerWidth;
+	}
+}
+
+@media only screen and (max-width: 479px) {
+	$containerWidth: 300px;
+
+	.container, [class*="column-"] {
+		width: $containerWidth;
+	}
+}

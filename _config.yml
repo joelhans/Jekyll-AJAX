@@ -1,0 +1,20 @@
+safe:        false
+auto:        true
+server:      true
+server_port: 4000
+baseurl:    /
+url: http://localhost:4000
+
+source:      .
+destination: ./_site
+
+exclude:     ['README.md', './public/sass', 'config.rb']
+
+future:      true
+lsi:         false
+pygments:    true
+markdown:    rdiscount
+permalink:   pretty
+
+rdiscount:
+  extensions: []

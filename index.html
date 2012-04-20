@@ -1,0 +1,12 @@
+---
+layout: layout
+title: Jekyll
+slug: index
+---
+{% for post in site.posts %}
+<div class="column-12 post">
+	<h1><a href="{{ post.url}}" title="{{ post.title }}">{{ post.title }}</a></h1>
+	{{ post.summary | markdownify }}
+	<p class="read-arrow"><a href="{{ post.url }}">Learn more. &rarr;</a></p>
+</div>
+{% endfor %}

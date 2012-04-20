@@ -1,0 +1,121 @@
+$base:					rgba(242, 242, 242, 1);
+$body:					rgba(33, 33, 33, 1);
+
+$linkColor:				rgba(133, 71, 194, 1);
+$linkColorHover: 		darken($linkColor, 20%);
+$linkTrans:				rgba(133, 71, 194, 0.2);
+
+$baseFont:				18px;
+$baseFontFamily:		'Open Sans', sans-serif;
+$headingFontFamily:		Georgia, serif;
+$baseLine:				$baseFont * 1.5;
+$baseHeaderFont:		$baseFont * 2.2;
+
+@mixin bodyFont {
+	font: {
+		family: $baseFontFamily;
+		size: $baseFont;
+		weight: 400;
+	}
+	line-height: $baseLine;
+	color: $body;
+	margin-bottom: $baseLine / 2;
+}
+
+@mixin headingFont {
+	font: {
+		family: $headingFontFamily;
+		size: $baseHeaderFont;
+		weight: 400;
+	}
+	line-height: $baseHeaderFont * 1.2;
+	color: $body;
+}
+
+p, aside, span { @include bodyFont; }
+
+dt, dd {
+	@include bodyFont;
+	@include inline-block;
+}
+
+h1, h2, h3, h4, h5, h6 { @include headingFont; }
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
+
+h1, h2 {margin-bottom: $baseLine / 2;}
+h3, h4 {margin-bottom: $baseLine / 3;}
+h5, h6 {margin-bottom: $baseLine / 4;}
+
+h1 { font-size: $baseHeaderFont; }
+h2 { font-size: $baseHeaderFont * 0.8; }
+h3 { font-size: $baseHeaderFont * 0.6; }
+h4 { font-size: $baseHeaderFont * 0.5; }
+h5 { font-size: $baseHeaderFont * 0.4; }
+h6 { font-size: $baseHeaderFont * 0.35; }
+
+em {font-style: italic; line-height: inherit;}
+strong {font-weight: bold; line-height: inherit;}
+h2 strong { font-weight: 400; }
+
+a, a:visited {
+	color: $linkColor;
+	text-decoration: none;
+	border-bottom: 1px solid $linkTrans;
+	&:hover {
+		color: $linkColorHover;
+		border-bottom: 1px solid $linkColorHover;
+	}
+	&:active {
+		position: relative;
+		margin-top: 1px;
+		top: 1px;
+	}
+}
+
+ul, ol {
+	margin-bottom: $baseLine / 2;
+	li {
+		@include bodyFont;
+		margin-bottom: 8px;
+		color: $body;
+		list-style-type: none;
+	}
+}
+
+blockquote {
+	@include bodyFont;
+	color: $body;
+	margin: 0 0 $baseLine / 2 $baseLine; padding-left: $baseLine;
+	border-left: 1px solid $linkColor;
+}
+
+pre {
+	font-family: monospace;
+	@include background($linkTrans);
+	margin: 0 $baseLine $baseLine / 2 $baseLine; 
+	padding: $baseLine;
+}
+
+code span { 
+	font-family: monospace;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+/* -----------------------------------------
+*	Typography in > 767 mode.
+----------------------------------------- */
+@media screen and (max-width: 767px) {
+	p, ul li, span {
+		font-size: $baseFont * 0.85;
+		line-height: $baseLine * 0.85;
+	}
+
+	h1 { font-size: $baseHeaderFont * 0.85; }
+	h2 { font-size: $baseHeaderFont * 0.85 * 0.8; }
+	h3 { font-size: $baseHeaderFont * 0.85 * 0.6; }
+	h4 { font-size: $baseHeaderFont * 0.85 * 0.5; }
+	h5 { font-size: $baseHeaderFont * 0.85 * 0.4; }
+	h6 { font-size: $baseHeaderFont * 0.85 * 0.35; }
+
+}
