@@ -28,7 +28,7 @@ The tech that makes this possible is acutally incredibly simple. All one needs t
 		History.Adapter.bind(window, 'statechange', function(){
 			var State = History.getState();
 			$.get(State.url, function(data){
-				document.title = $(data).("title").text();
+				document.title = $(data).find("title").text();
 				$('.content').html($(data).find('.content'));
 				_gaq.push(['_trackPageview', State.url]);
 			});
@@ -54,7 +54,7 @@ There. That wasn't that hard, was it?
 
 As a little aside, I'll take a minute to talk titles. The above code is capable of changing the document's title on-the-fly during an AJAX call, thanks to this little bit of code:
 
-	document.title = $(data).("title").text();
+	document.title = $(data).find("title").text();
 
 This works in essentially the same way as the Javascript that pulls the page's content, except it grabs the title of the page we call with AJAX and inserts that into the current document. It assumes that you have your titles set up properly, which this default Jekyll site does. *Just another reason to use this as a solid template for your next Jekyll-based project*.
 
