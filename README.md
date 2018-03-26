@@ -1,8 +1,8 @@
-# What is This Monstrosity? #
-
-Jekyll, despite being a static site generator, is very HTML5 History- and AJAX-friendly. The key lies in [History.JS](https://github.com/balupton/history.js), built by Benjamin Arthur Lupton, and a small piece of Javascript.
+# This repository is unmaintained. Forks are welcome.
 
 ## What this does ##
+
+Jekyll, despite being a static site generator, is very HTML5 History- and AJAX-friendly. The key lies in [History.JS](https://github.com/balupton/history.js), built by Benjamin Arthur Lupton, and a small piece of Javascript.
 
 By utilizing History.JS, we can make any Jekyll-built site use AJAX and a bit of jQuery magic to load content *without* refreshing the page, and *with* all the cleanliness of the HTML5 pushState functionality.
 
